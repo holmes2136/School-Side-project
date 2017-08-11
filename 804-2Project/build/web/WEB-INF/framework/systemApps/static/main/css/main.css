@@ -1,0 +1,215 @@
+/*
+ * The contents of this file are subject to the terms 
+ * of the Common Development and Distribution License 
+ * (the License).  You may not use this file except in
+ * compliance with the License.
+ * 
+ * You can obtain a copy of the license at 
+ * https://glassfish.dev.java.net/public/CDDLv1.0.html or
+ * glassfish/bootstrap/legal/CDDLv1.0.txt.
+ * See the License for the specific language governing 
+ * permissions and limitations under the License.
+ * 
+ * When distributing Covered Code, include this CDDL 
+ * Header Notice in each file and include the License file 
+ * at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+ * If applicable, add the following below the CDDL Header, 
+ * with the fields enclosed by brackets [] replaced by
+ * you own identifying information: 
+ * "Portions Copyrighted [year] [name of copyright owner]"
+ * 
+ * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ */
+
+/* CSS Document */
+
+body {
+    margin:0;
+    font-family:"Trebuchet MS", Arial, Verdana;
+    font-size:0.9em;
+    color:#222222;
+    background-color:#eeeefc;
+    text-align:left;
+}
+
+body .dojoTooltip {
+    background-color:#204a87;
+    color:white;
+}
+
+input {
+    background-color:#f6f6f6;
+    padding:3px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:12px;
+    color:#000000;
+    border:1px solid #cccccc;
+    margin-bottom:2px;
+}
+
+input[type=submit] {
+    background-color:#e3e7df;
+    padding:0px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    color:#222222;
+    border:2px solid #999999;
+    border-top-color: #cccccc;
+    border-left-color: #cccccc;
+    margin-bottom:2px;
+    margin-left: 10px;
+}
+
+input[type=submit]:hover {
+    border:2px solid #999999;
+    border-bottom-color: #cccccc;
+    border-right-color: #cccccc;
+}
+
+a {
+    color:#204a87;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#3465a4;
+    text-decoration:underline;
+}
+
+ol,ul {
+
+}
+
+li {
+    padding-bottom:20px;
+    line-height:20px;
+    text-align:left;
+    list-style-image:none;
+    list-style-type:disc;
+}
+
+#header {
+    position: fixed;
+    width:100%;
+    height: 25px;
+    top: 0;
+    bottom: auto;
+    right: 0;
+    left: 0;
+    padding-top:5px;
+    background-color:#111111;
+    border-bottom:5px solid #3465a5;
+    color:#ffffff;
+    text-align:center;
+}
+
+#header a {
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:14px;
+    font-variant:small-caps;
+    color:#729fcf;
+    text-decoration:none;
+    padding-left:20px;
+}
+
+#header a:hover {
+    color:#82afdf;
+    text-decoration:underline;
+}
+
+#content {
+    width: 90%;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align:left;
+}
+
+#mainarea h1 {
+    font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+    font-size:25px;
+    text-transform:uppercase;
+    font-weight:normal;
+    color:#222222;
+}
+
+#mainarea h2 {
+    font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;
+    font-size:20px;
+    text-transform:uppercase;
+    font-weight:normal;
+    color:#222222;
+}
+
+#mainarea p {
+    line-height:20px;
+}
+
+#mainarea .hilite {
+    color:#cc0000;
+    margin:5px;
+    padding:2px;
+}
+
+#mainarea .notice {
+    color:#222222;
+    margin:10px;
+    padding:5px;
+    background-color: #ffffd8;
+}
+
+#mainarea table {
+    table-layout: fixed;
+    border: 1px solid #3465a5;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+#mainarea th {
+    text-align: left;
+    border-bottom: 1px solid #3465a5;
+    background-color: #204a87;
+    color: #eeeeee;
+}
+
+#mainarea td {
+    padding-right: 20px;
+}
+
+#mainarea table.hidden {
+    border: 0px;
+}
+
+#mainarea th.hidden {
+}
+
+#mainarea td.hidden {
+}
+
+#mainarea pre {
+    border: 1px solid #3465a5;
+    padding: 5px;
+    background-color: #ffffff;
+}
+
+#footer {
+    position: fixed;
+    width:100%;
+    height: 25px;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color:#111111;
+    border-top:5px solid #3465a5;
+    padding-top:5px;
+    text-align:center;
+    color:#dddddd;
+}
+#footer a {
+    color:#729fcf;
+}
+#footer a:hover {
+    color:#82afdf;
+}

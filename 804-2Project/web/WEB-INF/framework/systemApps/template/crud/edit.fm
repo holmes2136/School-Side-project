@@ -1,0 +1,34 @@
+<% response.setStatus(200);
+   response.setContentType("text/html");
+   context.setWriter(response.getWriter()); %>
+<html>
+    <head>
+        <%
+            var writer = context.getWriter();
+            var inst = model.instance;
+            var actions = model.submitActions;
+        %>
+        <title>${classname} Edit</title>
+
+        <script type="text/javascript">
+                var djConfig = {isDebug: false};
+        </script>
+        <script type="text/javascript" src=<%= library.view.quoteUrl("/resources/libs/dojo/version.4.1/dojo.js") %>></script>
+        <script type="text/javascript">
+            dojo.require("dojo.widget.Tooltip");
+        </script>
+    </head>
+    ${relLoadFunction}
+        <h1>${classname} Edit</h1>
+        <form action=<%=  library.view.quoteUrl(model.formurl) %> method="post">
+        ${editText}
+        <%
+            for (var j = 0; j < actions.length; j++) {
+                writer.println("\t\t<input type=\"submit\" name=\"action\" value=\"" + actions[j] + "\"/>");
+            }
+        %>
+        </form>
+        <p><br>
+        <a href=<%= library.view.quoteUrl("/${urlprefix}/${modulename}/htmllist") %>>Back</a>
+    </body>
+</html>

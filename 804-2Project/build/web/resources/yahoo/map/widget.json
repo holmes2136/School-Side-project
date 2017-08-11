@@ -1,0 +1,40 @@
+{"name": "Map",
+ "type": "Yahoo",
+ "version": "1.1",
+ "jmakiVersion": "1.0",
+ "image" : "images/yahoo-map.jpg",
+ "description": "A configurable map.",
+ "args": [
+         {"zoom":{"type":"NUMBER", "defaultValue": 7, "description": "The map zoom."}},
+         {"location" : {"type":"STRING", "defaultValue": "Santa Clara, CA", "description": "The default location to center. Location takes precedence over setting centerLat and centerLong properties."}},
+         {"centerLat":{"type":"NUMBER", "defaultValue": 37.4041960114344, "description": "The center latititude."}},
+         {"centerLon":{"type":"NUMBER", "defaultValue": -122.008194923401, "description": "The center longitude."}},
+         {"mapType":{"type":"STRING", "defaultValue": "SATELLITE", "values": [
+               {"name" : "Hybrid", "value" : "HYBRID", "description" : "Hybrid view."},
+               {"name" : "Regular", "value" : "REGULAR", "description" : "Regular view."},
+               {"name" : "Satellite", "value" : "SATELLITE", "description" : "Satellite view."}
+              ], "description": "The map type."}},
+         {"height":{"type":"NUMBER", "defaultValue": 320, "description": "A static height."}},
+         {"width":{"type":"NUMBER", "defaultValue": 500, "description": "A static width."}}
+    ],
+ "config" : {
+     "type" : {
+         "id" :  "yahoo.map",
+         "dynamicallyLoadable" : false,
+         libs: [
+            "../resources/libs/yahoo/v2.5.1/yahoo-dom-event/yahoo-dom-event.js",
+            "../resources/libs/yahoo/v2.5.1/dragdrop/dragdrop-min.js",
+            "../resources/libs/yahoo/v2.5.1/animation/animation-min.js",
+            "../resources/libs/yahoo/v2.5.1/connection/connection-min.js",
+            "http://us.js2.yimg.com/us.js.yimg.com/lib/map/js/api/ymapapi_3_7_1_11.js"]
+        },
+  "apikeys" : [
+     {"id": "yahoo", "keys": [{"url" : "*", "key" : "jmaki-key"}]}
+    ]
+  },
+    "topicInfo": {
+       "type": "publish",
+       "topicName": ["/yahoo/map/onClick","/yahoo/map/onChangeZoom"],
+       "description":"onClick, onChangeZoom: both publish to their topicName when the map is clicked or the zoom is changed. Both publish an object with id and value. Both publish the same value which is structured as follows {lat,lon,prevZoom,currZoom}."
+    }  
+}

@@ -1,0 +1,20 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="moduleList">
+        <div class="title"><%= model.leftHeader %> <a href="summary.html" target="moduleContentsFrame">all</a></div>
+        <%
+        for (var i in model.env.modules) {
+        var aModule = model.env.modules[i];
+        %>
+        <div class="name"><a href="<%= aModule.name %>_overview.html" target="moduleContentsFrame"><%= aModule.name %></a></div>
+        <%   
+        }
+        %>
+    </div>
+</body>
+</html>

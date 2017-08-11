@@ -1,0 +1,31 @@
+{
+    'name': 'AutoComplete',
+    'type': 'yahoo',
+    'version': '1.0.1', 
+    'jmakiVersion' : '1.0',
+    'image': 'images/yahoo-autocomplete.jpg',
+    'modelURL' : 'http://wiki.java.net/bin/view/Projects/jMakiComboxModel', 
+    'description': 'Autocomplete widget.',
+    'args': [
+     ],
+     'value': {
+         'required':'true',
+         'type': 'ARRAY',
+         'defaultValue': [
+                              {'label' : 'Alabama', 'value' : 'AL'},
+                              {'label' : 'California', 'value' : 'CA'},
+                              {'label' : 'New York', 'value' : 'NY', 'selected' : true},
+                              {'label' : 'Texas', 'value' : 'TX'}	           
+                              ]
+     },
+     'config' : {
+         'type': {
+             'id' : 'yahoo.autocomplete',
+             'libs': [ 
+             '../resources/libs/yahoo/v2.5.1/yahoo-dom-event/yahoo-dom-event.js',
+             '../resources/libs/yahoo/v2.5.1/connection/connection-min.js',
+             '../resources/libs/yahoo/v2.5.1/datasource/datasource-beta-min.js',
+             '../resources/libs/yahoo/v2.5.1/autocomplete/autocomplete-min.js']
+         }
+     }
+}

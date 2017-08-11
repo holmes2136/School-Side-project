@@ -1,0 +1,14 @@
+SMAP
+uploadIframe_jsp.java
+JSP
+*S JSP
+*F
++ 0 uploadIframe.jsp
+upload/uploadIframe.jsp
+*L
+1,5:53
+6,6:15
+11,11:57
+22,16:69
+37,6:85
+*E

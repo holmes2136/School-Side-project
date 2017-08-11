@@ -1,0 +1,63 @@
+@charset "utf-8";
+#flash {
+	background-color: #FF00CC;
+	width: 150px;
+}
+
+#top {
+	background-color: #666666;
+	width: 1000px;
+}
+#content {
+	width: 1000px;
+	background-image: url(image/bg_minidots.gif);
+	background-color: #999999;
+	background-attachment: scroll;
+	background-repeat: no-repeat;
+	
+}
+#nofunction {
+	width: 900px;
+}
+#right {
+	float: left;
+	font-family: "標楷體";
+	width: 670px;
+	background-position: center;
+	
+}
+#left {
+	background-color: #C0C0C0;
+	float: left;
+	font-family: "標楷體";
+	width: 150px;
+	background-image: url(image/bg_minidots.gif);
+	background-position: right center;
+	color: #00CC66;
+	height: 800px;
+}
+#photoSticker {
+	background-color: #CCFF33;
+	width: 150px;
+}
+#friends {
+	background-color: #FF3333;
+	width: 150px;
+}
+#category {
+	background-color: #33FF99;
+	width: 150px;
+}
+#categoryTopic {
+	background-color: #CCCC66;
+	width: 150px;
+}
+#allTopic {
+	width: 150px;
+	background-color: #FF3333;
+}
+#newTopic {
+	width: 150px;
+	background-color: #CCFF33;
+}
+

@@ -1,0 +1,35 @@
+<%
+    var formurl = "\"" + model.formurl + "\"";
+%>
+<html>
+    <head>        
+        <link rel="stylesheet" href=<%= library.view.quoteUrl("/jpagenerator.css") %> type="text/css"></link>
+        <title>${classname} List</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    </head>
+    <body>
+       <div class="outerBorder"> 
+            <div class="header">
+                <div class="banner">${classname} List</div>
+                
+                <div class="subheader">
+                    <div>
+                        <a href=<%= library.view.quoteUrl("/${urlprefix}/${modulename}/create") %>>Create </a>
+                    </div> <!-- sub-header -->
+                </div> <!-- sub-header -->
+                
+                <div class="subheader2">
+                    <div>
+                        <%= model.navigationUrls %>
+                    </div> <!-- sub-header2 -->
+                </div> <!-- sub-header2 -->
+
+            </div> <!-- header -->
+
+            <div class="main">
+                <%= model.tabledata %>        
+            </div> <!-- main -->
+
+        </div> <!-- outerborder -->
+    </body>
+</html>

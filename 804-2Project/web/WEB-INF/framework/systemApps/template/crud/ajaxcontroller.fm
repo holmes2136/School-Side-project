@@ -1,0 +1,104 @@
+library.common.define(controller["${subpkgname}"], "${modulename}", function() {
+
+    this.${classname}  = function() {
+        var modulename = "${modulename}";
+        var subpkgname = "${subpkgname}";
+        var urlprefix  = "${urlprefix}";
+        var classname  = "${classname}";
+        var clazz      = new module[subpkgname][modulename][classname];
+        var helper     = module[subpkgname].helpers;
+        var jpahelper  = library.jpahelper;
+
+        var htmlListUrlStr  = '/' + urlprefix + '/' + modulename + '/htmllist';
+        var renderHtmlEjs   = '/application/view/' + subpkgname + '/' + modulename + '/htmllist.ejs';
+        var renderEditEjs   = '/application/view/' + subpkgname + '/' + modulename + '/edit.ejs';
+        var updateUrlStr    = '/' + urlprefix + '/' + modulename + '/update';
+        
+        /*
+         * This is the method that would display data for the Entity.
+         */
+        this.htmllist = function() {
+            model = { clazz:  clazz
+                    };
+            library.view.render(renderHtmlEjs);
+        }
+        
+        /*
+         * This is the method that performs the "create" action.
+         */
+        this.create = function() {
+            model = {  formurl:         updateUrlStr
+                       , clazz:         clazz
+                       , submitActions: ["Create", "Cancel"]
+                       , titleStr:      'Create a new ' + classname
+                     };
+
+            library.view.render(renderEditEjs);
+        }
+
+
+        /*
+         * This is the method that performs the "edit" action.
+         */
+        this.edit = function() {
+
+            library.httpserver.onMethod({
+                POST: function() {
+                    jpahelper.performEditAction(clazz);
+
+                    model = {   formurl:         updateUrlStr
+                                , clazz:         clazz
+                                , submitActions: ["Update", "Delete"]
+                                , titleStr:      'Edit an existing ' + classname
+                            };
+
+                    library.view.render(renderEditEjs);
+                }
+            });
+        };
+
+        /*
+         * This is the method that delete a specific row from the list page.
+         */
+        this.remove = function() {
+            library.httpserver.onMethod({
+                POST: function() {
+                    jpahelper.performRemoveAction(clazz);
+                }
+            });
+            model = { clazz:  clazz
+                    };
+        };
+
+        /*
+         * This is the method that performs the "update" action.
+         */
+        this.update = function() {
+            library.httpserver.onMethod({
+                POST: function() {
+                    var errorMesg = jpahelper.performUpdateAction(clazz);
+
+                    model = { clazz:  clazz
+                            }; 
+
+                    if (errorMesg.length == 0) {
+                        library.view.render(renderHtmlEjs);
+                    } else {
+                        response.setStatus(200);
+                        response.setContentType("text/html");
+                        writer = response.getWriter();
+                        writer.println(errorMesg);
+                        writer.flush();
+                    }
+                }
+            });
+        }
+
+        this.xhprequest = function() {
+            var action       = request.getParameter("action");
+            var currPosition = request.getParameter("currPosition");
+            jpahelper.processRequest(action,currPosition,clazz,htmlListUrlStr);
+        }
+        
+    } //this.${classname}
+});

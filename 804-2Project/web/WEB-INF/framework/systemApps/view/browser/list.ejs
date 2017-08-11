@@ -1,0 +1,62 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->  
+    <div id="mainarea">
+
+            <h1>Resource Browser</h1>
+                        
+            <p>
+                Directory name: <%
+                    var current = "";
+                    for (var i in model.components) {
+                        var component = model.components[i];
+                        current += "/";
+                        current += component;
+                        %>/<a href=<%= library.view.quoteUrl("/system/browser/display?name=" + current) %>><%= component %></a><%
+                    }
+                %>
+            </p>
+
+            <p><div>
+            <%
+                if (model.children.length == 0) {
+             %>
+                (empty)
+             <%
+                }
+                else {
+                    for (var i in model.children) {
+                        var name = model.children[i];
+                        var fullname = model.name + "/" + name;
+                        var tag = library.resource.isDirectory(fullname) ? '/' : '' ;
+                 %>
+                        <a href=<%= library.view.quoteUrl("/system/browser/display?name=" + fullname) %>><%= name %></a><%= tag %><br/>
+            <%
+                   }
+                }
+             %>
+            </div></p>
+
+            <a href=<%= library.view.quoteUrl("/system/browser/display?name=" + model.name) %>><%= model.name %></a>
+            &nbsp;&nbsp; Last modified: <%= model.lastModified %>
+            <br/><br/>
+    </div>

@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <%
+       function sanitize(s) {
+           if (s == undefined) s = "";
+           s = s.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+           s = module.system.formatter.asHTML(s);
+           return s;
+       }
+       var writer = context.writer;
+
+    %>
+    <div class="moduleContents">
+        <div class="name"><%= model.currentModule.name %></div>
+        <div class="comment">
+            <%= sanitize(model.currentModule.comment)%>
+        </div>
+        <div class="members">
+            <%
+            
+            var describer = {
+                on_function: function(selector, fn) {
+                    writer.print("<div class=\"member memberType_function\" id=\"" + this.prefix + fn.name + "\">");
+                    writer.print("<div class=\"description\">function " + fn.name + "(");
+                    var first = true;
+                    for (var i in fn.args) {
+                        if (first) { first = false; } else { writer.print(", "); }
+                        writer.print(fn.args[i]);
+                    }
+                    writer.println(")</div>");
+                    if (fn.comment) {
+                        writer.println("<div class=\"comment\">" + sanitize(fn.comment) + "</div>");
+                    }
+                    writer.print("</div>");
+                },
+                on_scalar: function(selector, scalar) {
+                    writer.print("<div class=\"member memberType_scalar\" id=\"" + this.prefix + scalar.name + "\">");
+                    writer.println("<div class=\"description\">constant " + scalar.name + " = " + String(scalar.value) + "</div>");
+                    if (scalar.comment) {
+                        writer.println("<div class=\"comment\">" + sanitize(scalar.comment) + "</div>");
+                    }
+                    writer.print("</div>");
+                },
+                on_unknown: function(selector, unknown) {
+                    writer.print("<div class=\"member memberType_scalar\" id=\"" + this.prefix + unknown.name + "\">");
+                    writer.println("<div class=\"description\">constant " + unknown.name + "</div>");
+                    if (unknown.comment) {
+                        writer.println("<div class=\"comment\">" + sanitize(unknown.comment) + "</div>");
+                    }
+                    writer.print("</div>");
+                },
+                on_class: function(selector, klass) {
+                    writer.print("<div class=\"member memberType_class\" id=\"" + this.prefix + klass.name + "\">");
+                    writer.println("<div class=\"description\">class " + klass.name + "</div>");
+                    if (klass.comment) {
+                        writer.println("<div class=\"comment\">" + sanitize(klass.comment) + "</div>");
+                    }
+                    // writer.println("<div class=\"section\">Members</div>");
+                    writer.println("<table><tr><td width='10%'>&nbsp;</td><td>");
+                    var oldPrefix = this.prefix;
+                    this.prefix = this.prefix + klass.name + "$";
+                    for (var memberName in klass.members) {
+                        var member = klass.members[memberName];
+                        library.lang.dispatch("on_" + member.kind, this, member);
+                    }
+                    this.prefix = oldPrefix;
+                    writer.println("</td></tr></table>");
+                    writer.print("</div>");
+                },
+                prefix: ""
+            };
+
+            for (var i in model.currentModule.exportedMembers) {
+                var member = model.currentModule.exportedMembers[i];
+                library.lang.dispatch("on_" + member.kind, describer, member);
+            }
+            %>
+
+        </div>
+        <% library.scripting.run(model.footerFragment); %>
+    </div>
+</body>
+</html>

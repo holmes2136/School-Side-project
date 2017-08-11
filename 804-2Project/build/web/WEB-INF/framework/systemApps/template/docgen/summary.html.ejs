@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="moduleOverview">
+        <div class="name"><%= model.leftHeader %></div>
+        
+        <%
+        function annotation(s) {
+            var lookup = {"function": "f", "class": "c", "scalar": "v", "module": "m", "unknown": "v"};
+            var result = lookup[s];
+            if (!result) result = "-"; // unknown
+            return result;
+        }
+        
+        var allMembers = [];
+        for (var i in model.env.modules) {
+            var aModule = model.env.modules[i];
+            for (var j in aModule.exportedMembers) {
+                var member = aModule.exportedMembers[j];
+                member.owner = aModule;
+                allMembers.push(member);
+            }
+        }
+        
+        allMembers = allMembers.sort(function(m1, m2) {
+            var v1 = m1.name;
+            var v2 = m2.name;
+            return ((v1 < v2) ? -1 : ((v1 > v2) ? 1 : 0));
+        });
+        
+        for (var i in allMembers) {
+            var member = allMembers[i];
+        %>
+        <div class="memberName memberType_<%= member.kind %>"><span class="annotation"><%= annotation(member.kind) %></span><a href="<%= member.owner.name %>.html#<%= member.name %>" target="contentsFrame"><%= member.name %></a></div>
+        <%
+            if (member.kind == "class") {
+                for (var k in member.members) {
+                var member2 = member.members[k];
+         %>
+        <div class="classMemberName memberType_<%= member2.kind %>"><span class="annotation"><%= annotation(member2.kind) %></span><a href="<%= member.owner.name %>.html#<%= member.name %>$<%= member2.name %>" target="contentsFrame"><%= member2.name %></a></div>
+        <%
+                }
+            }
+        }
+        %>
+    </div>
+</body>
+</html>

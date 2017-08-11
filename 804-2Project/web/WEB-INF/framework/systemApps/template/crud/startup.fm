@@ -1,0 +1,4 @@
+
+application.mapping.rules.push({
+    url: "/${urlprefix}/@controller/@action", fn: "library.mapping.maybeController", prefix: "${subpkgname}"
+});

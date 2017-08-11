@@ -1,0 +1,12 @@
+SMAP
+deleteCategory_jsp.java
+JSP
+*S JSP
+*F
++ 0 deleteCategory.jsp
+Category/deleteCategory.jsp
+*L
+1,11:43
+12,5:55
+16,5:60
+*E

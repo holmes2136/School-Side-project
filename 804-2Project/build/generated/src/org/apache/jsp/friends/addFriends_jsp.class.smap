@@ -1,0 +1,10 @@
+SMAP
+addFriends_jsp.java
+JSP
+*S JSP
+*F
++ 0 addFriends.jsp
+friends/addFriends.jsp
+*L
+1,47:42
+*E

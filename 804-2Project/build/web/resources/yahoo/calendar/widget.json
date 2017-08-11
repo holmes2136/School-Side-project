@@ -1,0 +1,45 @@
+{
+    "name": "Calendar",
+    "type": "yahoo",
+    "version": "1.0",
+    "jmakiVersion" : "1.0",
+    "image": "images/yahoo-calendar.jpg",
+    "description": "A normal/button calendar.",
+    "args":  [
+        {"mode":{"type":"STRING", "defaultValue": "normal", "values": [
+        {"name" : "normal", "value" : "normal", "description" : "Normal calendar."},
+        {"name" : "button", "value" : "button", "description" : "Calendar button."}]}},
+        {"format":{"type":"STRING", "defaultValue": "YYYY/MM/DD", "values": [
+        {"name" : "YYYY/MM/DD", "value" : "YYYY/MM/DD", "description" : ""},
+        {"name" : "MM/DD/YYYY", "value" : "MM/DD/YYYY", "description" : ""},
+        {"name" : "DD/MM/YYYY", "value" : "DD/MM/YYYY", "description" : ""}]}}
+    ],
+    "config" : {
+        "type" :
+        {
+            "id" : "yahoo.calendar",
+            "libs" : [
+                "../resources/libs/yahoo/v2.5.1/yahoo-dom-event/yahoo-dom-event.js",
+                "../resources/libs/yahoo/v2.5.1/element/element-beta-min.js",
+                "../resources/libs/yahoo/v2.5.1/container/container_core-min.js",
+                "../resources/libs/yahoo/v2.5.1/menu/menu-min.js",
+                "../resources/libs/yahoo/v2.5.1/button/button-min.js",
+                "../resources/libs/yahoo/v2.5.1/datasource/datasource-beta-min.js",
+                "../resources/libs/yahoo/v2.5.1/calendar/calendar-min.js"],
+            "styles" : [
+                "../resources/libs/yahoo/v2.5.1/menu/assets/skins/sam/menu.css",
+                "../resources/libs/yahoo/v2.5.1/button/assets/skins/sam/button.css",
+                "../resources/libs/yahoo/v2.5.1/calendar/assets/skins/sam/calendar.css"],
+            "resources": [
+                "../resources/libs/yahoo/v2.5.1/assets",
+                "../resources/libs/yahoo/v2.5.1/menu/assets",
+                "../resources/libs/yahoo/v2.5.1/button/assets",
+                "../resources/libs/yahoo/v2.5.1/calendar/assets"]
+        }
+    },
+    "topicInfo": {
+       "type": "publish",
+       "topicName": ["/yahoo/calendar/onSelect"],
+       "description":"onSelect publishes to its topicName when a date is selected. It publishes an object with id and value. The value is a JavaScript Date Object."
+    }
+}

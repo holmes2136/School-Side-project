@@ -1,0 +1,116 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->  
+    <div id="mainarea">
+
+            <h1>Generator for Java Persistence Entities</h1>
+          
+        <%
+            var notice = invocation.flash["notice"];
+            if (notice) {            
+        %>
+              <p><span class="notice"><%= notice %></span></p>
+        <%
+            }
+         %>
+            <p>
+                <table class="hidden">
+                <tr>
+                <form action=<%= library.view.quoteUrl("/system/jpagenerator/crud")%> method="post">
+                    <td>
+                    <span class="hilite">Persistence Units</span>
+                    </td>
+                    <td>
+                    <select name="punameList" size=10 onChange=
+                        "this.form.subpkgname.value = this.options[this.selectedIndex].text;
+                        this.form.urlprefix.value = this.options[this.selectedIndex].text;"
+                        >
+                    <%
+                        for (var idx in model.punames) {
+                            var puname = model.punames[idx];
+                            %>
+                            <option value=<%=puname%>><%=puname%>
+                        <%
+                        }
+                    %>
+                    </select>
+                    </td>
+                    <%
+                    if (model.entityhrefs != undefined) {
+                        %>
+                        <td>
+                        <select name="entityList" size=10>
+                            <%
+                            for (var hrefIdx in model.entityhrefs) {
+                                var entityname = model.entityhrefs[hrefIdx];
+                                %>
+                                <option value=<%=hrefIdx%>><%=entityname%>
+                            <%
+                            }
+                            %>
+                        </select>
+                        </td>
+                    <%
+                    }
+                    %>
+                    </tr>
+                    <tr>
+                        <td>
+                            <br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="hilite">Name of the Sub-package</span>
+                        </td> 
+                        <td>
+                            <input name="subpkgname" type="text" size="50">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="hilite">Application URL Prefix</span>
+                        </td> 
+                        <td>
+                            <input name="urlprefix" type="text" size="50">
+                            </input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="hilite">Controller generation options :</span>
+                        </td> 
+                        <td>
+                            <input type="radio" name="genapptype" checked value="ajax"/>Ajax 
+                            <input type="radio" name="genapptype" value="html"/>Html 
+                        </td>
+                        <td>
+                        <input type="submit" value="Generate"/>
+                        </td>
+                    </tr>
+                </form>
+
+                </table>
+            </p>
+        <br/><br/>
+    </div>

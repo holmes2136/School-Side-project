@@ -1,0 +1,9 @@
+// generated controller
+
+library.common.define(controller${moduleName}, "${name}", function() {
+    this.${Name} = function() {
+        this.onRequest = function() {            
+            library.view.render("${pathName}.ejs");
+        };
+    };
+});

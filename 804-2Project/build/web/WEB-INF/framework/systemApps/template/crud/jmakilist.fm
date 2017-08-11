@@ -1,0 +1,21 @@
+<%
+    var formurl = "\"" + model.formurl + "\"";
+%>
+<html>
+    <head>
+        <title>${classname} List</title>
+    </head>
+    <body>
+        <h1>${classname} List</h1>
+        <hr>
+        <br>
+        <a href="/${urlprefix}/${modulename}/create">Create </a>
+        <hr>
+        <%
+            library.jmaki.insert({
+                component: "dojo.table",
+                value: model.tabledata
+            });
+        %>
+    </body>
+</html>

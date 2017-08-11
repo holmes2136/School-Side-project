@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="moduleOverview">
+        <div class="name"><%= model.currentModule.name %><a href="<%= model.currentModule.name %>.html" target="contentsFrame">doc</a></div>
+        
+        <%
+        function annotation(s) {
+            var lookup = {"function": "f", "class": "c", "scalar": "v", "module": "m", "unknown": "v"};
+            var result = lookup[s];
+            if (!result) result = "-"; // unknown
+            return result;
+        }
+        
+        for (var i in model.currentModule.exportedMembers) {
+            var member = model.currentModule.exportedMembers[i];
+        %>
+        <div class="memberName memberType_<%= member.kind %>"><span class="annotation"><%= annotation(member.kind) %></span><a href="<%= model.currentModule.name %>.html#<%= member.name %>" target="contentsFrame"><%= member.name %></a></div>
+        <%
+            if (member.kind == "class") {
+                for (var j in member.members) {
+                var member2 = member.members[j];
+         %>
+        <div class="classMemberName memberType_<%= member2.kind %>"><span class="annotation"><%= annotation(member2.kind) %></span><a href="<%= model.currentModule.name %>.html#<%= member.name %>$<%= member2.name %>" target="contentsFrame"><%= member2.name %></a></div>
+        <%
+                }
+            }
+        }
+        %>
+    </div>
+</body>
+</html>

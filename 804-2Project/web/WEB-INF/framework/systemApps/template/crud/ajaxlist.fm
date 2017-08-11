@@ -1,0 +1,163 @@
+<html>
+    <head>        
+        <link rel="stylesheet" href=<%= library.view.quoteUrl("/jpagenerator.css") %> type="text/css"></link>
+        <title>${classname} List</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    </head>
+    <body onload="updateDivContent(0,true,true)">
+        <script type="text/javascript">
+
+            function updateDivContent(currPosition,tableHeader,async) {
+                displayNavigationUrls(currPosition,async);
+                if (tableHeader) {
+                    displayTableHeader(async);
+                }
+                displayTableRows(currPosition,async);
+            }
+
+            function displayNavigationUrls(currPosition,async) {
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/xhprequest") %> 
+                    + "?action=navigate&" + "currPosition=" + currPosition;
+                setDivContent(url,'navigate',async);
+            }
+
+            function displayBackUrl(async) {
+                var url = <%= library.view.quoteUrl("${urlprefix}/${modulename}/xhprequest") %> 
+                    + "?action=back";
+                setDivContent(url,'navigate',async);
+            }
+            
+            function displayTableHeader(async) {
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/xhprequest") %> 
+                    + "?action=tablehead";
+                setDivContent(url,'tableHeader',async);
+            }
+
+            function displayTableRows(currPosition,async) {
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/xhprequest") %> 
+                    + "?action=list&" + "currPosition=" + currPosition;
+                setDivContent(url,'tableBody',async);
+            }
+            
+            function setDivContent(url,divid,async) {
+                var req = createXhttpReq();
+                req.onreadystatechange = function() {
+                    processRequest(req,divid);
+                };
+                req.open("POST", url, async);
+                req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                req.send(null);
+            } //setDivContent
+            
+            function createXhttpReq() {
+                var xreq;
+                if (window.XMLHttpRequest) {
+                    xreq = new XMLHttpRequest();
+                } else if (window.ActiveXObject) {
+                    xreq = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                return xreq;
+            }
+
+            function processRequest(req,divid) {
+                var contentId = document.getElementById(divid);
+                if (req.readyState == 4) {
+                    if (req.status == 200) {
+                        contentId.innerHTML = req.responseText;
+                    }
+                }
+            }
+
+            function resetDivContent(divid) {
+                var contentId = document.getElementById(divid);
+                contentId.innerHTML = "";
+            }
+
+            function createRow() {
+                displayBackUrl(false);
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/create") %>;
+                resetDivContent('tableHeader');
+                setDivContent(url,'tableBody',false);
+                processRelations();
+            }
+
+            function editRow(queryStr) {
+                displayBackUrl(false);
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/edit") %> 
+                    + "?action=edit&" + queryStr;
+                resetDivContent('tableHeader');
+                setDivContent(url,'tableBody',false);
+                processRelations();
+            }
+
+            function removeRow(queryStr) {
+                var url = <%= library.view.quoteUrl("/${urlprefix}/${modulename}/remove") %> 
+                    + "?action=remove&" + queryStr;
+                setDivContent(url,'tableBody',false);
+                updateDivContent(0,false,true);
+            }
+
+            function processRelations() {
+                var resultsList = <%= library.json.serialize(library.jpahelper.prepareRelationsResultList(model.clazz)) %>;
+                var relations = <%= library.json.serialize(model.clazz.relations) %>;
+                var instance = <%= library.json.serialize(library.jpahelper.getValueArray(model.clazz)) %>;
+                for (var n in resultsList) {
+                    var resultArray = resultsList[n];
+                    if (!relations[n].isOwner) {
+                        continue;
+                    }
+                    var currFieldValue = (document.getElementById(n + '_hidden').value).split('$_%');
+                    for (var rsltRow in resultArray) {
+                        var rsltArrayRow = resultArray[rsltRow];
+                        var optVal = rsltArrayRow[0];
+                        var optTxt = rsltArrayRow[1];
+                        var opt;
+                        if (currFieldValue.length == 0) { //Create case
+                            opt = new Option(optTxt,optVal,false);
+                            document.getElementById(n).options[document.getElementById(n).options.length] = opt;
+                        } else { //Edit case 
+                            for (var idx in currFieldValue) {
+                                if (optVal == currFieldValue[idx]) {
+                                    opt = new Option(optTxt,optVal,true);
+                                    break;
+                                } else {
+                                    opt = new Option(optTxt,optVal,false);
+                                }
+                            }
+                            document.getElementById(n).options[document.getElementById(n).options.length] = opt;
+                        }
+                    } // for rsltRow in resultArray
+                } // for n in resultsList
+            } //processRelations
+
+        </script>
+        
+        <div class="outerBorder"> 
+            <div class="header">
+                <div class="banner">${classname} List</div>
+                
+                <div class="subheader">
+                    <div>
+                        <a href="javascript:createRow();">Create </a>
+                    </div> <!-- sub-header -->
+                </div> <!-- sub-header -->
+                
+                <div class="subheader2">
+                    <div  id="navigate">
+                    </div> <!-- sub-header2 -->
+                </div> <!-- sub-header2 -->
+
+            </div> <!-- header -->
+            
+            <div  id="main" class="main">
+
+                <div  id="tableHeader">
+                </div> <!-- tableHeader -->
+                <div  id="tableBody">
+                </div> <!-- tableBody -->
+
+            </div> <!-- main -->
+
+        </div> <!-- outerborder -->
+    </body>
+</html>

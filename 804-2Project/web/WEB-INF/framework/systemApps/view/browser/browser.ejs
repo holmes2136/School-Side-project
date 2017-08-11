@@ -1,0 +1,87 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->  
+    <div id="mainarea">
+
+            <h1>Resource Browser</h1>
+                        
+            <p>
+                Application resources: <a href=<%= library.view.quoteUrl("/system/browser/display?name=" + model.applicationRoot) %>><%= model.applicationRoot %></a>
+            </p>
+            <p>
+                Framework resources: <a href=<%= library.view.quoteUrl("/system/browser/display?name="  + model.frameworkRoot) %>><%= model.frameworkRoot %></a>
+            </p>
+            <p>
+                Static content: <a href=<%= library.view.quoteUrl("/system/browser/display?name="  + model.staticRoot) %>><%= model.staticRoot %></a>
+            </p>
+
+            <h2>Paths</h2>
+
+            <%
+                function gen(name, path) {
+                    %>
+                    <p><span class="hilite"><%= name %></span>
+                    <%
+                       if (path == undefined || path.length == 0) {
+                     %>
+                       (none)
+                     <%
+                       }
+                       else {
+                           var first = true; 
+                           for (var i = 0; i < path.length; ++i) {
+                             var entry = path[i];
+                             var link = entry;
+                             var displayName = entry;
+                             if (!library.lang.isString(entry)) {
+                                 displayName = entry.element + "/(" + entry.prefix + ")";
+                                 link = entry.element;
+                             }
+                             if (first) {
+                                first = false;
+                             }
+                             else {
+                     %>
+                        &#x00b7;&nbsp;
+                     <%
+                             }
+                     %>
+                        <a href=<%= library.view.quoteUrl("/system/browser/display?name=" + link) %>><%= displayName %></a>&nbsp;
+                    <%
+                         }
+                       }
+                    %>
+                    </p>
+                   <%
+                }
+                
+                gen("Controller", model.path.controller);
+                gen("Library", model.path.library);
+                gen("Module", model.path.module);
+                gen("Script", model.path.script);
+                gen("View", model.path.view);
+                gen("Static content", model.path.content);
+                gen("Dynamic content", model.path.dynamic);
+                gen("Unit tests", model.path.test);
+             %>
+        <br/><br/>
+    </div>

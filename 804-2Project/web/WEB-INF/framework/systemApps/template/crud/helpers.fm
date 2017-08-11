@@ -1,0 +1,7 @@
+library.common.define(module["${subpkgname}"], "helpers", function() {
+    
+    this.puname = "${puname}";
+    this.subpkgname = "${subpkgname}";
+    this.emf = library.jpahelper.checkGlobalsForEMF(this.puname);
+
+});

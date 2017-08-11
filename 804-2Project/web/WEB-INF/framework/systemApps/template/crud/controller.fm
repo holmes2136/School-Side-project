@@ -1,0 +1,130 @@
+library.common.define(controller["${subpkgname}"], "${modulename}", function() {
+
+    this.${classname}  = function() {
+        var modulename = "${modulename}";
+        var subpkgname = "${subpkgname}";
+        var urlprefix  = "${urlprefix}";
+        var classname  = "${classname}";
+        var clazz      = new module[subpkgname][modulename][classname];
+        var helper     = module[subpkgname].helpers;
+        var jpahelper  = library.jpahelper;
+
+        var htmlListUrlStr  = '/' + urlprefix + '/' + modulename + '/htmllist';
+        var jmakiListUrlStr = '/' + urlprefix + '/' + modulename + '/jmakilist';
+        var renderHtmlEjs   = '/application/view/' + subpkgname + '/' + modulename + '/htmllist.ejs';
+        var renderJmakiEjs  = '/application/view/' + subpkgname + '/' + modulename + '/jmakilist.ejs';
+        var renderEditEjs   = '/application/view/' + subpkgname + '/' + modulename + '/edit.ejs';
+        var updateUrlStr    = '/' + urlprefix + '/' + modulename + '/update';
+
+        /*
+         * Html display table with CRUD features
+         */
+        this.htmllist = function() {            
+            library.httpserver.onMethod({
+                GET: function() {
+                    var allParams = library.httpserver.parseRequestParameters();
+                    var currPosition = allParams.currPosition;
+                    if (currPosition == undefined) {
+                        currPosition = 0;
+                    }
+                    
+                    model = { clazz:    clazz
+                              , tabledata:  
+                                    jpahelper.getHtmlTableData('/' + urlprefix
+                                        + '/' + modulename + '/',clazz
+                                        ,Number(currPosition))
+                              , navigationUrls: 
+                                    jpahelper.getNavigationInfo(htmlListUrlStr 
+                                        + '?currPosition=',clazz
+                                        ,Number(currPosition))
+                            }; 
+                    library.view.render(renderHtmlEjs);
+                }
+            });
+        }
+
+        /*
+         * This is the method that performs the "list" action.
+         */
+        this.jmakilist = function() {
+            model = { clazz:        clazz
+                      , tabledata:  jpahelper.getJmakiTableData(clazz,-1)
+                      , formurl:    updateUrlStr
+                    };            
+            library.view.render(renderJmakiEjs);
+        }
+
+        /*
+         * This is the method that performs the "create" action.
+         */
+        this.create = function() {
+            var resultList = jpahelper.prepareRelationsResultList(clazz);
+
+            model = {  formurl:         updateUrlStr
+                       , clazz:         clazz
+                       , instance:      jpahelper.getValueArray(clazz)
+                       , resultList:    library.json.serialize(resultList)
+                       , submitActions: ["Create", "Cancel"]
+                     };
+             library.view.render(renderEditEjs);
+        }
+
+        /*
+         * This is the method that performs the "update" action.
+         */
+        this.update = function() {
+            library.httpserver.onMethod({
+                POST: function() {
+                    var errorMesg = jpahelper.performUpdateAction(clazz);
+
+                    if (errorMesg.length == 0) {
+                        library.httpserver.sendFound(htmlListUrlStr);
+//                        library.httpserver.sendFound(jmakiListUrlStr);
+                    } else {
+                        response.setStatus(200);
+                        response.setContentType("text/html");
+                        writer = response.getWriter();
+                        writer.println(errorMesg);
+                        writer.flush();
+                    }
+                }
+            });
+        }
+
+        /*
+         * This is the method that performs the "edit" action.
+         */
+        this.edit = function() {
+            var resultList = jpahelper.prepareRelationsResultList(clazz);
+
+            library.httpserver.onMethod({
+                GET: function() {
+                    jpahelper.performEditAction(clazz);                  
+
+                    model = {   formurl:         updateUrlStr
+                                , clazz:         clazz
+                                , instance:      jpahelper.getValueArray(clazz)
+                                , resultList:    library.json.serialize(resultList)
+                                , submitActions: ["Update", "Delete"]
+                            };
+                    library.view.render(renderEditEjs);
+                }
+            });
+        };
+        
+        /*
+         * This is the method that delete a specific row from the list page.
+         */
+        this.remove = function() {
+            library.httpserver.onMethod({
+                GET: function() {
+                    jpahelper.performRemoveAction(clazz);
+
+                    library.httpserver.sendFound(htmlListUrlStr);
+//                    library.httpserver.sendFound(jmakiListUrlStr);
+                }
+            });
+        };
+
+    } //this.${classname}
+});

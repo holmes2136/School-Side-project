@@ -1,0 +1,39 @@
+library.common.define(module["${subpkgname}"], "${modulename}", function() {
+
+    this.${classname} = function() {        
+    }
+
+    this.${classname}.prototype.subpkgname = "${subpkgname}";
+    this.${classname}.prototype.entityname = "${entityname}";
+    this.${classname}.prototype.allColumns = ["${allcols}"];
+    // Change the "columnsToList" to change the fields that get displayed in the view
+    this.${classname}.prototype.columnsToList = ${nonprimaryKeycols};
+    this.${classname}.prototype.primaryKeys   = ${primaryKeys};
+    this.${classname}.prototype.entityClassName = "${javaClassName}";
+    this.${classname}.prototype.queries = {
+                                   "allRows":            "${queryAllRows}"
+                                   , "maxRowCount":      "${queryCountRows}"
+                                   , "alias":            "q"
+                                   , "displayRelFields": ${displayRelFields}
+                                   , "noofRowsPerPage":  5
+                                };
+    ${relText}
+    ${colText}
+
+    // Change this based on your needs 
+//    this.${classname}.prototype.toString = function() {
+//        return this.entityObj.toString();
+//    }
+
+    this.${classname}.prototype.find = function(idValueStr) {
+        var pkValues = {};
+        if (this.primaryKeys.length == 1) {
+	    var idName  = this.primaryKeys[0];
+	    pkValues[idName] = idValueStr;
+	    this.entityObj = library.jpahelper.findByPKValue(this,pkValues);
+        }
+        return this.entityObj;
+    }
+
+    ${accessorText}
+});

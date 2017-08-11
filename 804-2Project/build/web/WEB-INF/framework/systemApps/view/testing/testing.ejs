@@ -1,0 +1,77 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->  
+    <div id="mainarea">
+
+            <h1>Unit Tests</h1>
+                        
+            <p>
+                <a href=<%= library.view.quoteUrl("/system/testing/runAll")%>>Run all unit tests</a>
+            </p>
+            
+            <%
+                if (model.success != undefined) {
+             %>
+               <h2><%= model.success ? "ALL TESTS OK" : "SOME TESTS FAILED" %></h2>
+               
+                <table>
+                  <tr><th width="30%">Test script</th><th width="10%">Outcome</th></tr>
+               <%
+                    for (var i = 0; i < model.results.length; ++i) {
+                        var result = model.results[i];
+                %>
+                <tr <%= result.succeeded ? "" : "class='hilite'"%>>
+                   <td><a href=<%= library.view.quoteUrl("/system/browser/display?name=" + result.script)%>><%= result.script %></a> <%= result.name != undefined ? (": " + result.name) : "" %></td>
+                   <td><%= result.succeeded ? "OK" : "FAILED" %></td>
+                </tr>
+               <%
+                    }
+                %>
+                
+                </table>
+                <br/><br/>
+               <%
+                  if (model.success == false) {
+                %>
+                  <h2>FAILURE REPORT</h2>
+               <%
+                    for (var i = 0; i < model.results.length; ++i) {
+                        var result = model.results[i];
+                        if (!result.succeeded) {
+                %>
+                   <p>
+                   In <a href=<%= library.view.quoteUrl("/system/browser/display?name=" + result.script)%>><%= result.script %></a> <%= result.name != undefined ? (": " + result.name) : "" %>
+                   : <%= String(result.exception) %>
+                   </p>
+               <%
+                        }
+                    }
+                %>
+                  
+               <%
+                  }
+               %>
+            <%
+                }
+            %>
+        <br/><br/>
+    </div>

@@ -1,0 +1,125 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->
+
+.outerBorder {
+    padding:            10px 10px 10px 10px;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.header {
+    border-top:         10px;
+    text-align:         center;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.subheader {
+    border-top:         4px solid #000000;
+    margin-top :        30px;
+    height:             20px;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.subheader div {
+    padding-left:       20px;
+    float:              left;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.subheader2 {
+    border-bottom:      4px solid #000000;
+    height:             20px;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.subheader2 div {
+    padding-right:    20px;
+    float:            right;
+    color:            #222222;
+    background-color: #eeeefc;
+}
+
+.main {
+    width:              100%;
+    margin-top:         10px;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.main div {
+    text-align:         left;
+    overflow:           hidden;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.tableBody div {
+    text-align:         left;
+    overflow:           hidden;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+.banner {
+    margin:             0px 40px 0px 0px;
+    vertical-align:     middle;
+    font-size:          35px;
+    text-align:         center;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+table {
+    border:             1px;
+    width:              100%;
+    table-layout:       fixed;
+    margin-right:       auto;
+    margin-left:        auto;
+    overflow:           hidden;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+th {
+    text-align:         center;
+    overflow:           hidden;
+    text-transform:     uppercase;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+td {
+    text-align:         center;
+    overflow:           hidden;
+    color:              #222222;
+    background-color:   #eeeefc;
+}
+
+option {
+    overflow:           hidden;
+}
+

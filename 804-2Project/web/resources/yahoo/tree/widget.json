@@ -1,0 +1,45 @@
+{
+    'name': 'Tree',
+    'type': 'yahoo',
+    'version': '1.0',
+    'jmakiVersion': '1.0',
+    'image': 'images/yahoo-tree.jpg',
+    'description': 'This widget is a dynamic tree that can easily be configured.',
+    'modelURL' : 'http://wiki.java.net/bin/view/Projects/jMakiTreeModel',
+    'args': [
+    {'topic':{'type':'STRING', 'defaultValue': '/yahoo/tree', 'description': 'The topic published to'}}
+    ],
+    'value': {'required':'true',
+    'type': 'OBJECT',
+    'defaultValue':{ 
+        'root':{'title': 'Default Yahoo Tree Root Node',
+        'expanded': true,
+        'children': [
+        {'title':'Yahoo Node 1.1', 'onclick': {'url':'foo'}},
+        {'title':'Yahoo Node 1.2', 'children': [{'title':'Node 3.1'}]}
+        ] 
+        }
+    }
+    },
+    'config' : {
+        'type' :
+        { 'id' : 'yahoo.tree', 
+          'libs' : [
+          '../resources/libs/yahoo/v2.5.1/yahoo/yahoo-min.js',
+          '../resources/libs/yahoo/v2.5.1/event/event-min.js',
+          '../resources/libs/yahoo/v2.5.1/treeview/treeview-min.js'
+          ],
+          'styles' : [
+          '../resources/libs/yahoo/v2.5.1/treeview/assets/skins/sam/treeview.css'
+          ],
+          'resources' : [
+          '../resources/libs/yahoo/v2.5.1/treeview/assets'
+          ]
+        }
+    },
+    'topicInfo': {
+       'type': 'publish',
+       'topicName': ['/yahoo/tree/onClick','/yahoo/tree/onCollapse','/yahoo/tree/onExpand'],
+       'description':'All of them publish to their topicName when a tree node is clicked, collapsed or expanded. All of them publish an object with id and value. The value is {label}.'
+    }    
+}

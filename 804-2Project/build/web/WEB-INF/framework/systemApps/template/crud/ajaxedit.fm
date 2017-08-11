@@ -1,0 +1,15 @@
+<% 
+    var writer = context.getWriter();
+    var inst = library.jpahelper.getValueArray(model.clazz);
+    var actions = model.submitActions; 
+%>
+        <h2><%= model.titleStr %></h2>
+        <form action=<%=  library.view.quoteUrl(model.formurl) %> method="post">
+        ${editText}
+        <%
+            for (var j = 0; j < actions.length; j++) {
+                writer.println("\t\t<input type=\"submit\" name=\"action\" value=\"" + actions[j] + "\"/>");
+            }
+        %>
+        </form>
+        <p><br>

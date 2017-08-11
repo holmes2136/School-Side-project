@@ -1,0 +1,38 @@
+{
+ 'name': 'Yahoo JavaScript Flash Map',
+ 'type': 'Yahoo',
+ 'version': '1.0',
+ 'jmakiVersion': '1.0',
+ 'image' : 'images/yahoo-flashmap.jpg',
+ 'description': 'A configurable flash map.',
+ 'args': [
+         {'zoom':{'type':'NUMBER', 'defaultValue': '7', 'description': 'The map zoom.'}},
+         {'location' : {'type':'STRING', 'defaultValue': 'Santa Clara, CA', 'description': 'The default location to center. Location takes precedence over setting centerLat and centerLong properties.'}},
+         {'centerLat':{'type':'NUMBER', 'defaultValue': 37.4041960114344, 'description': 'The center latititude.'}},
+         {'centerLon':{'type':'NUMBER', 'defaultValue': -122.008194923401, 'description': 'The center longitude.'}},
+         {'mapType':{'type':'STRING', 'defaultValue': 'HYBRID',
+          'values': [
+               {'name' : 'Map', 'value' : 'MAP', 'description' : 'Normal view.'},
+               {'name' : 'Hybrid', 'value' : 'HYBRID', 'description' : 'Hybrid view.'},
+               {'name' : 'Satellite', 'value' : 'SATELLITE', 'description' : 'Satellite view.'}
+              ], 'description': 'The map type.'}},
+         {'height':{'type':'NUMBER', 'defaultValue': 320, 'description': 'A static height.'}},
+         {'width':{'type':'NUMBER', 'defaultValue': 500, 'description': 'A static width.'}}
+    ],
+ 'config' : {
+     'type' : {
+         'id' :  'yahoo.flashmap',
+         'dynamicallyLoadable' : false,
+         'libs': ['http://maps.yahooapis.com/v3.5.2/fl/javascript/apiloader.js?appid='],
+         'apikey' : 'yahoo'
+        },
+  'apikeys' : [
+     {'id': 'yahoo', 'keys': [{'url' : '*', 'key' : 'jmaki-key'}]}
+    ]
+  },
+    'topicInfo': {
+       'type': 'publish',
+       'topicName': ['/yahoo/flashmap/onClick','/yahoo/flashmap/onChangeZoom'],
+       'description':'onClick, onChangeZoom: both publish to their topicName when the map is clicked or the zoom is changed. Both publish an object with id and value. Both publish the same value which is structured as follows {lat,lon,prevZoom,currZoom}.'
+    }  
+}

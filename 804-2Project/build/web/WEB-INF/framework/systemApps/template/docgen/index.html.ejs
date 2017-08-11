@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    targetPage = "" + window.location.search;
+    if (targetPage != "" && targetPage != "undefined")
+       targetPage = targetPage.substring(1);
+    function loadFrames() {
+        if (targetPage != "" && targetPage != "undefined")
+             top.classFrame.location = top.targetPage;
+    }
+</script>
+</head>
+<frameset cols="30%,70%" title="" onLoad="top.loadFrames()">
+<frameset rows="40%,60%" title="" onLoad="top.loadFrames()">
+<frame src="moduleList.html" name="moduleListFrame" title="">
+<frame src="summary.html" name="moduleContentsFrame" title="">
+</frameset>
+<frame src="main.html" name="contentsFrame" title="" scrolling="yes">
+<noframes>
+<h2>Your browser does not support frames</h2>
+<p>The documentation is intended to be viewed in a browser that supports frames.</p>
+</noframes>
+</frameset>
+</html>

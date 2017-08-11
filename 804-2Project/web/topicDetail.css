@@ -1,0 +1,86 @@
+﻿@charset "utf-8";
+#top {
+	background-color: #666666;
+	width: 1024px;
+}
+#content {
+	width: 1024px;
+	background-color: #999999;
+	background-image: url(image/vision.jpg);
+	background-attachment: scroll;
+	background-repeat: no-repeat;
+	float: none;
+	clear: both;
+}
+#nofunction {
+	width: 1024px;
+}
+#right {
+	float: right;
+	font-family: "標楷體";
+	width: 850px;
+	background-position: center;
+	
+}
+#left {
+	background-color: #C0C0C0;
+	float: left;
+	font-family: "標楷體";
+	width: 150px;
+	background-image: url(image/blackg-2.jpg);
+	background-position: right center;
+	color: #00CC66;
+}
+#content #right hr {
+	background-position: center;
+	height: 5px;
+	background-image: url(image/line41.gif);
+	background-color: #CCCCCC;
+}
+#newtopic {
+	color: #FFFF00;
+	font-family: "標楷體";
+	font-size: 12px;
+	line-height: 2em;
+	width:146px;
+	
+}
+#alltopic {
+	font-family: "標楷體";
+	font-size: 12px;
+	line-height: 2em;
+	color: #FFCC66;
+	width:146px;
+	
+}
+.style2 {color: #33CCFF}
+.style7 {font-size: 14px; }
+a:link {
+	color: #999900;
+}
+a:visited {
+	color: #0000FF;
+}
+.style8 {font-family: Arial, Helvetica, sans-serif}
+
+#categoryTopic {
+	width:146px;
+	font-family: "標楷體";
+	font-size: 12px;
+	line-height: 2em;
+	color: #FF6699;
+}
+
+#content #left #form1 #button {
+	color: #00FF33;
+	background-image: url(image/btn10.gif);
+	background-position: center center;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+}
+#login {
+	width:146px;
+	
+}

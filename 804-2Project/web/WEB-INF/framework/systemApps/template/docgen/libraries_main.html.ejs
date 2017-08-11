@@ -1,0 +1,15 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title><%= model.title %></title>
+    <link href="doc.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="mainPage">
+        <div class="title"><a href="https://phobos.dev.java.net">Phobos</a> Library Documentation</div>
+        <div class="normal">These pages list the documentation for all standard <a href="https://phobos.dev.java.net">Phobos</a> libraries (version <%= globals.frameworkVersion %>).</div>
+        <div class="normal">Please select a library package from the list on the left to browse its contents.</div>
+        <% library.scripting.run(model.footerFragment); %>
+    </div>
+</body>
+</html>

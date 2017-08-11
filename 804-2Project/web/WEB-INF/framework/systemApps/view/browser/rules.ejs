@@ -1,0 +1,94 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2006 Sun Microsystems, Inc. All rights reserved.
+ -->  
+    <div id="mainarea">
+    
+        <h1>Current URL Mapping Rules</h1>
+                                
+        <p>
+            The following rules are applied in order:
+        </p>
+        <table>
+          <tr><th width="40%">Pattern</th><th>Target</th></tr>            
+        <% 
+        
+            function hilite(s) {
+                return "<span class='hilite'>" + s + "</span>";
+            }
+            
+            for (var i = 0; i < model.rules.length; ++i) {
+            var rule = model.rules[i];
+            var target = undefined;
+            if (rule.fn) {
+                switch (rule.fn) {
+                    case "library.mapping.maybeContent":
+                                target = "any static content";
+                                break;
+                    case "library.mapping.maybeScript":
+                                target = "any script";
+                                break;
+                    case "library.mapping.maybeDynamic":
+                                target = "any dynamic content";
+                                break;
+                    case "library.mapping.maybeREST":
+                                if (rule.factory) {
+                                    target = "REST resource factory " + hilite(rule.factory);
+                                }
+                                else if (rule.resource) {
+                                    target = "REST resource " + hilite(rule.resource);
+                                }
+                                break;
+                    case "library.mapping.maybeController":
+                                if (rule.defaults && rule.defaults.controller) {
+                                    target = "controller " + hilite(rule.defaults.controller);
+                                }
+                                else {
+                                    target = "any controller";
+                                }
+                                if (rule.prefix) {
+                                    target += " with prefix " + hilite(rule.prefix);
+                                }
+                                if (rule.defaults && rule.defaults.action) {
+                                    target += " &#x00b7; action " + hilite(rule.defaults.action);
+                                }
+                                break;
+                    default:
+                                target = "function " + rule.fn;
+                }
+            }
+            else if (rule.script) {
+                target = "script " + hilite(rule.script);
+            }
+            else if (rule.content) {
+                target = "resource " + hilite(rule.content);
+            }
+            if (!target) {
+                continue;
+            }
+         %>
+            <tr><td><%= rule.url %></td><td><%= target %></td></tr> 
+         <%
+            }
+         %>
+        </table>
+        <br/><br/>
+    </div>

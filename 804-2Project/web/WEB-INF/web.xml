@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"><context-param><description>Switch off caching. You can remove this parameter or comment it out when this app goes into production.</description><param-name>jmaki-usecache</param-name><param-value>false</param-value></context-param>
+    <context-param>
+        <param-name>com.sun.phobos.derby.useEmbedded</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <listener>
+        <listener-class>com.sun.phobos.container.webapp.PhobosServletContextListener</listener-class>
+    </listener>
+    <servlet><servlet-name>DispatcherServlet</servlet-name><servlet-class>login.DispatcherServlet</servlet-class></servlet><servlet><servlet-name>XmlHttpProxy</servlet-name><servlet-class>jmaki.xhp.XmlHttpProxyServlet</servlet-class></servlet>
+    <servlet>
+        <display-name>Phobos Servlet</display-name>
+        <servlet-name>PhobosServlet</servlet-name>
+        <servlet-class>com.sun.phobos.container.webapp.PhobosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>setDefaultLocation</servlet-name>
+        <servlet-class>setDefaultLocation</servlet-class>
+    </servlet>
+    <servlet-mapping><servlet-name>DispatcherServlet</servlet-name>
+    <url-pattern>*.action</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+    <servlet-name>XmlHttpProxy
+</servlet-name>
+<url-pattern>/xhp
+</url-pattern>
+</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PhobosServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>setDefaultLocation</servlet-name>
+        <url-pattern>/setDefaultLocation</url-pattern>
+    </servlet-mapping>
+    <session-config><session-timeout>
+            30
+    </session-timeout></session-config><welcome-file-list><welcome-file>
+            index.jsp
+</welcome-file></welcome-file-list></web-app>

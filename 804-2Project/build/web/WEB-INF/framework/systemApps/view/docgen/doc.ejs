@@ -1,0 +1,102 @@
+<!--
+  The contents of this file are subject to the terms 
+  of the Common Development and Distribution License 
+  (the License).  You may not use this file except in
+  compliance with the License.
+  
+  You can obtain a copy of the license at 
+  https://glassfish.dev.java.net/public/CDDLv1.0.html or
+  glassfish/bootstrap/legal/CDDLv1.0.txt.
+  See the License for the specific language governing 
+  permissions and limitations under the License.
+  
+  When distributing Covered Code, include this CDDL 
+  Header Notice in each file and include the License file 
+  at glassfish/bootstrap/legal/CDDLv1.0.txt.  
+  If applicable, add the following below the CDDL Header, 
+  with the fields enclosed by brackets [] replaced by
+  you own identifying information: 
+  "Portions Copyrighted [year] [name of copyright owner]"
+  
+  Copyright 2007 Sun Microsystems, Inc. All rights reserved.
+ -->
+<div id="mainarea">
+<%
+    var writer = context.writer;
+    
+    function dispatchOne(target, name, arg) {
+        var fn = target[name];
+        if (library.lang.isFunction(fn)) {
+            fn.call(target, arg);
+        }
+    }
+    
+    function sanitize(s) {
+        return s.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+    
+    var describer = {
+        on_module: function(selector, module) {
+            writer.println("<h2>" + module.name + "</h2>");
+            if (module.comment) {
+                writer.println("<p><pre>" + sanitize(module.comment) + "</pre></p>");
+            }
+            for (var memberName in module.exportedMembers) {
+                var member = module.exportedMembers[memberName];
+                library.lang.dispatch("on_" + member.kind, this, member);
+            }
+        },
+        on_function: function(selector, fn) {
+            writer.print("<h3>function " + fn.name + "(");
+            var first = true;
+            for (var i in fn.args) {
+                if (first) { first = false; } else { writer.print(", "); }
+                writer.print(fn.args[i]);
+            }
+            writer.println(")</h3>");
+            if (fn.comment) {
+                writer.println("<p><pre>" + sanitize(fn.comment) + "</pre></p>");
+            }
+        },
+        on_scalar: function(selector, scalar) {
+            writer.println("<h3>constant " + scalar.name + " = " + String(scalar.value) + "</h3>");
+            if (scalar.comment) {
+                writer.println("<p><pre>" + sanitize(scalar.comment) + "</pre></p>");
+            }
+        },
+        on_unknown: function(selector, unknown) {
+            writer.println("<h3>constant " + unknown.name + "</h3>");
+            if (unknown.comment) {
+                writer.println("<p><pre>" + sanitize(unknown.comment) + "</pre></p>");
+            }
+        },
+        on_class: function(selector, klass) {
+            writer.println("<h3>class " + klass.name + "</h3>");
+            if (klass.comment) {
+                writer.println("<p><pre>" + sanitize(klass.comment) + "</pre></p>");
+            }
+            writer.println("<table><tr><td width='10%'>&nbsp;</td><td>");
+            for (var memberName in klass.members) {
+                var member = klass.members[memberName];
+                library.lang.dispatch("on_" + member.kind, this, member);
+            }
+            writer.println("</td></tr></table>");
+        }
+    };
+    
+    var first = true;
+    for (var i in model.env.modules) {
+        if (first) {
+            writer.println("<br/><br/>");
+            first = false;
+        }
+        else {
+            writer.println("<br/><hr/><br/>");
+        }
+        var module = model.env.modules[i];
+        library.lang.dispatch("on_module", describer, module);
+        writer.println("<br/><br/>");
+    }
+%>
+    
+</div>

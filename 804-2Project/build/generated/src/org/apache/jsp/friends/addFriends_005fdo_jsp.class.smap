@@ -1,0 +1,19 @@
+SMAP
+addFriends_005fdo_jsp.java
+JSP
+*S JSP
+*F
++ 0 addFriends_do.jsp
+friends/addFriends_do.jsp
+*L
+1,11:44
+12,3:56
+14:59
+15:60,14
+15:67
+16:68,3
+17:71
+17,3:74
+20,4:78
+23,6:82
+*E

@@ -1,0 +1,37 @@
+{'name': 'Map Popup',
+         'type': 'Google',
+         'version': '1.0',
+         'jmakiVersion' : '1.0',  
+         'image' : 'images/map-popup.jpg',
+         'description': 'A configurable map.',
+         'args': [
+        {'height':{'type':'NUMBER', 'defaultValue': 320, 'description': 'A static height.'}},
+        {'width':{'type':'NUMBER', 'defaultValue': 500, 'description': 'A static width.'}}
+         ],
+ 'config' : {
+     'type' : {
+          'id': 'google',
+          'dynamicallyLoadable' : false,
+          'libs': ['http://maps.google.com/maps?file=api&amp;v=2&amp;key='],
+          'apikey' : 'google'
+        },
+ 'apikeys' : [
+   {'id': 'google', 'keys': [
+                    {'url': 'http://localhost/',
+                     'key': 'ABQIAAAAyEQwWkLnhtibmBGdNd7jrBT2yXp_ZAY8_ufC3CFXhHIE1NvwkxRvP3_IZHyjXX94-rCTiuxmYeGQ9g'
+                     },   
+                    {'url': 'http://localhost:8080/',
+                     'key': 'ABQIAAAAyEQwWkLnhtibmBGdNd7jrBTwM0brOpm-All5BF6PoaKBxRWWERSE9HbFrfC3qz1xdiSml249wpOibA'
+                     },
+                    {"url" : "http://localhost:8888/",
+                    "key" : "ABQIAAAAyEQwWkLnhtibmBGdNd7jrBTb-vLQlFZmc2N8bgWI8YDPp5FEVBRvQXpq7gkjNd3TJLZPPh3tV7BD7A"
+                    },
+                    {"url" : "http://localhost:8084/",
+                    "key" : "ABQIAAAAyEQwWkLnhtibmBGdNd7jrBTFRfqDGOwfXAlOK-54sJyR4NNS5RTlVk2wm8p_8xaiZbGfRrggljudNw"
+                    }
+                   
+              ]
+         }     
+     ] 
+   }         
+ }

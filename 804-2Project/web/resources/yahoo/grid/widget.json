@@ -1,0 +1,30 @@
+ {
+    'name': 'Grid',
+    'type': 'yahoo',
+    'version': '1.0',
+    'jmakiVersion': '1.0',    
+    'image': 'images/yahoo-grid.jpg',
+    'description': 'A grid widget.',
+    'args': [
+    {'topic':{'type':'STRING', 'defaultValue': '/yahoo/grid', 'description': 'The topic published to'}},
+    {'rowSingleSelect':{'type':'BOOLEAN', 'defaultValue': true, 'description': 'Row single selection'}},
+    ],
+    'config' : {
+        'type' :
+           { 'id' : 'yahoo.grid', 
+             'libs' : [
+                   '../resources/libs/yahoo/v2.5.1/yahoo-dom-event/yahoo-dom-event.js',
+                   '../resources/libs/yahoo/v2.5.1/datasource/datasource-beta-min.js',
+                   '../resources/libs/yahoo/v2.5.1/datatable/datatable-beta-min.js'
+               ],
+              'styles' : [
+                 '../resources/libs/yahoo/v2.5.1/datatable/assets/datatable.css'
+               ]
+        }
+    },
+    'topicInfo': {
+       'type': 'publish',
+       'topicName': ['/yahoo/grid/onSelect','/yahoo/grid/onEdit'],
+       'description':'Both publish to their topicName when a cell is selected or edited. Both publish an object with id and value. onSelect value is {rows}. onEdit value is {oldData,newData}.'
+    }    
+  }
